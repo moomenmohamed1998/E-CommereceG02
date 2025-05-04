@@ -52,7 +52,7 @@ namespace E_Commerece.Wep
             app.MapControllers();
             #endregion
 
-            app.Run();
+            app.Run(); 
         }
 
 
