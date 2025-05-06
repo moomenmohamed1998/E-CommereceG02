@@ -5,18 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using Abstraction;
 using Microsoft.AspNetCore.Mvc;
+using Shared;
 using Shared.Dto_s;
 
 namespace Peresentation.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-   public class ProductControllar(IServicesManager servicesManager):ControllerBase
+    public class ProductControllar(IServicesManager servicesManager) : ControllerBase
     {
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductDto>>> GetAllProducts()
+        public async Task<ActionResult<PaginateResult<ProductDto>>> GetAllProducts([FromQuery] ProductQueryParams productQuery)
         {
-            var Products=await servicesManager.ProductServices.GetAllProductsAsync();
+            var Products = await servicesManager.ProductServices.GetAllProductsAsync(productQuery);
             return Ok(Products);
         }
 

@@ -34,12 +34,12 @@ namespace Persistence.Repositories
 
         public async Task<IEnumerable<TEntity>> GetAllAsync(ISpecifications<TEntity, Tkey> spec)
         {
-           return await SpacificationEvaluator.CreateQuery(context.Set<TEntity>(), spec)
-                .ToListAsync();
+            return await SpacificationEvaluator.CreateQuery(context.Set<TEntity>(), spec)
+                 .ToListAsync();
         }
 
 
-        public async Task<TEntity> GetByAsynce(ISpecifications<TEntity, Tkey> spec)
+        public async Task<TEntity> GetBySpecAsync(ISpecifications<TEntity, Tkey> spec)
         {
             return await SpacificationEvaluator.CreateQuery(context.Set<TEntity>(), spec)
                          .FirstOrDefaultAsync();
@@ -49,5 +49,12 @@ namespace Persistence.Repositories
             throw new NotImplementedException();
         }
 
+        public Task<TEntity> GetByAsynce(ISpecifications<TEntity, Tkey> spec)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<int> CountAsync(ISpecifications<TEntity, Tkey> spec)
+     => await SpacificationEvaluator.CreateQuery(context.Set<TEntity>(), spec).CountAsync();
     }
 }
