@@ -1,9 +1,12 @@
 using System.Threading.Tasks;
+using Abstraction;
 using Domain.Contracts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Persistence.Data;
+using Persistence.Repositories;
+using Sevices;
 
 namespace E_Commerece.Wep
 {
@@ -28,6 +31,10 @@ namespace E_Commerece.Wep
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddScoped<IDbInializer, DbInializer>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddAutoMapper(typeof(AssemblyReferences).Assembly);
+            builder.Services.AddScoped<IServicesManager, ServicesManager>();
+
             #endregion
 
             var app = builder.Build();
@@ -45,6 +52,7 @@ namespace E_Commerece.Wep
             }
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
 
             app.UseAuthorization();
 
